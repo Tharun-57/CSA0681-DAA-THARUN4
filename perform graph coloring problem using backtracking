@@ -1,0 +1,24 @@
+#include <stdio.h>
+int main() {
+    int graph[4][4] = {
+        {0, 1, 1, 1},
+        {1, 0, 1, 0},
+        {1, 1, 0, 1},
+        {1, 0, 1, 0}
+    };
+    int colors[4] = {0};
+    int m = 3; // Number of colors
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < i; j++) {
+            if (graph[i][j] && colors[j] == colors[i]) {
+                colors[i] = (colors[i] + 1) % m;
+                j = -1;
+            }
+        }
+    }
+    printf("Colors assigned to vertices: \n");
+    for (int i = 0; i < 4; i++) {
+        printf("Vertex %d: Color %d\n", i, colors[i]);
+    }
+    return 0;
+}
