@@ -1,0 +1,31 @@
+#include <stdio.h>
+int total = 0;
+int set[] = {10, 7, 5, 18, 12, 20, 15};
+int n = 7;
+int target = 35;
+int include[7] = {0};
+void sumOfSubsets(int i, int sum, int total) {
+    if (sum == target) {
+        printf("Subset found: ");
+        for (int j = 0; j < n; j++) {
+            if (include[j] == 1) {
+                printf("%d ", set[j]);
+            }
+        }
+        printf("\n");
+    } else if (sum + set[i] <= target) {
+        include[i] = 1;
+        sumOfSubsets(i + 1, sum + set[i], total - set[i]);
+    }
+    if ((sum + total - set[i] >= target) && (sum + set[i + 1] <= target)) {
+        include[i] = 0;
+        sumOfSubsets(i + 1, sum, total - set[i]);
+    }
+}
+int main() {
+    for (int i = 0; i < n; i++) {
+        total += set[i];
+    }
+    sumOfSubsets(0, 0, total);
+    return 0;
+}
