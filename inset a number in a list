@@ -1,0 +1,17 @@
+#include <stdio.h>
+int main() {
+    int list[5] = {1, 2, 4, 5};
+    int number = 3;
+    int position = 2;
+    int i, n = 4;
+    for (i = n; i >= position; i--) {
+        list[i + 1] = list[i];
+    }
+    list[position] = number;
+    n++;
+    printf("List after inserting %d at position %d:\n", number, position);
+    for (i = 0; i < n; i++) {
+        printf("%d ", list[i]);
+    }
+    return 0;
+}
