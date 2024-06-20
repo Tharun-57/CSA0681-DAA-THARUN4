@@ -1,0 +1,24 @@
+#include <stdio.h>
+int main() {
+    int container_capacity = 1000;
+    int box1 = 300;
+    int box2 = 200;
+    int box3 = 400;
+    int total_boxes_loaded = 0;
+    int total_weight_loaded = 0;
+    while (total_weight_loaded + box1 <= container_capacity) {
+        total_weight_loaded += box1;
+        total_boxes_loaded++;
+    }
+    while (total_weight_loaded + box2 <= container_capacity) {
+        total_weight_loaded += box2;
+        total_boxes_loaded++;
+    }
+    while (total_weight_loaded + box3 <= container_capacity) {
+        total_weight_loaded += box3;
+        total_boxes_loaded++;
+    }
+    printf("Total boxes loaded: %d\n", total_boxes_loaded);
+    printf("Total weight loaded: %d\n", total_weight_loaded);
+    return 0;
+}
