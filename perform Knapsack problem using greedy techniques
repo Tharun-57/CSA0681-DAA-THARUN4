@@ -1,0 +1,55 @@
+#include <stdio.h>
+void ks(int n, float weig[], float prof[], float cap);
+int main() {
+    int n, i, j;
+    float weig[20], prof[20], ratio[20], temp, cap, total_profit = 0.0;
+    printf("Enter the number of items: ");
+    scanf("%d", &n);
+    printf("Enter the weights and profits of each item:\n");
+    for (i = 0; i < n; i++) {
+        scanf("%f %f", &weig[i], &prof[i]);
+        ratio[i] = prof[i] / weig[i];
+    }
+    printf("Enter the capacity of the knapsack: ");
+    scanf("%f", &cap);
+    for (i = 0; i < n; i++) {
+        for (j = i + 1; j < n; j++) {
+            if (ratio[i] < ratio[j]) {
+                temp = ratio[j];
+                ratio[j] = ratio[i];
+                ratio[i] = temp;
+                temp = weig[j];
+                weig[j] = weig[i];
+                weig[i] = temp;
+                temp = prof[j];
+                prof[j] = prof[i];
+                prof[i] = temp;
+            }
+        }
+    }
+    ks(n, weig, prof, cap);
+    return 0;
+}
+void ks(int n, float weig[], float prof[], float cap) {
+    float x[20], tp = 0.0;
+    int i, j, u;
+    u = cap;
+    for (i = 0; i < n; i++)
+        x[i] = 0.0;
+    for (i = 0; i < n; i++) {
+        if (weig[i] > u)
+            break;
+        else {
+            x[i] = 1.0;
+            tp += prof[i];
+            u -= weig[i];
+        }
+    }
+    if (i < n)
+        x[i] = u / weig[i];
+    tp += x[i] * prof[i];
+    printf("The result vector is:\n");
+    for (i = 0; i < n; i++)
+        printf("%f ", x[i]);
+    printf("\nThe maximum profit is: %f\n", tp);
+}
