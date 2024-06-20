@@ -1,0 +1,14 @@
+#include <stdio.h>
+int main() {
+    char sour[] = "Hello, World!";
+    char des[50];
+    int i = 0;
+    while (sour[i] != '\0') {
+        des[i] = sour[i];
+        i++;
+    }
+    des[i] = '\0';
+    printf("Source string: %s\n", sour);
+    printf("Destination string: %s\n", des);
+    return 0;
+}
