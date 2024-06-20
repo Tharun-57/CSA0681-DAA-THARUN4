@@ -1,0 +1,13 @@
+#include <stdio.h>
+int main() {
+    int cost[] = {10, 15, 20, 25, 30};
+    int n = sizeof(cost) / sizeof(cost[0]);
+    int min_cost = cost[0];
+    for (int i = 1; i < n; i++) {
+        if (cost[i] < min_cost) {
+            min_cost = cost[i];
+        }
+    }
+    printf("The optimal cost is: %d", min_cost);
+    return 0;
+}
