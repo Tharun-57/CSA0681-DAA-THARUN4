@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <limits.h>
+#define N 4
+int costMatrix[N][N] = {{10, 2, 8, 5}, {3, 9, 7, 2}, {8, 3, 6, 2}, {2, 4, 8, 7}};
+int rowMin[N], colMin[N], totalCost = 0;
+void reduceMatrix(int reducedMatrix[N][N]) {
+    for (int i = 0; i < N; i++) {
+        rowMin[i] = colMin[i] = INT_MAX;
+        for (int j = 0; j < N; j++) {
+            if (costMatrix[i][j] < rowMin[i]) rowMin[i] = costMatrix[i][j];
+            if (costMatrix[j][i] < colMin[i]) colMin[i] = costMatrix[j][i];
+        }
+    }
+    for (int i = 0; i < N; i++)
+        for (int j = 0; j < N; j++)
+            reducedMatrix[i][j] = costMatrix[i][j] - rowMin[i] - colMin[j];
+}
+void assignTask(int reducedMatrix[N][N], int row[N], int col[N], int rowSelected, int colSelected) {
+    row[rowSelected] = col[colSelected] = 1;
+    totalCost += costMatrix[rowSelected][colSelected];
+    for (int j = 0; j < N; j++)
+        if (!col[j]) assignTask(reducedMatrix, row, col, rowSelected + 1, j);
+}
+int main() {
+    int reducedMatrix[N][N], rowSelected[N] = {0}, colSelected[N] = {0};
+    reduceMatrix(reducedMatrix);
+    assignTask(reducedMatrix, rowSelected, colSelected, 0, 0);
+    printf("Total Cost: %d\n", totalCost);
+    return 0;
+}
